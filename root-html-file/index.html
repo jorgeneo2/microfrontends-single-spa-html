@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Security-Policy" content="default-src *  data: blob: 'unsafe-inline' 'unsafe-eval'; script-src * 'unsafe-inline' 'unsafe-eval'; connect-src * 'unsafe-inline'; img-src * data: blob: 'unsafe-inline'; frame-src *; style-src * data: blob: 'unsafe-inline'; font-src * data: blob: 'unsafe-inline';">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Your application</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="importmap-type" content="systemjs-importmap">
+    <script type="systemjs-importmap">
+      {
+        "imports": {
+          "header": "http://localhost:4201/main.js",
+          "footer": "http://localhost:4202/main.js",
+          "single-spa": "https://cdnjs.cloudflare.com/ajax/libs/single-spa/5.9.3/system/single-spa.min.js",
+          "single-spa-layout": "https://unpkg.com/single-spa-layout@2.0.1/dist/system/single-spa-layout.min.js",
+          "load-assets": "./src/loadAssets.js"
+        }
+      }
+    </script>
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/single-spa/5.9.3/system/single-spa.min.js" as="script" crossorigin="anonymous" />
+    <link rel="preload" href="https://unpkg.com/single-spa-layout@2.0.1/dist/system/single-spa-layout.min.js" as="script" crossorigin="anonymous" />
+
+    <script src='https://unpkg.com/core-js-bundle@3.1.4/minified.js'></script>
+    <script src="https://unpkg.com/zone.js@0.10.3/dist/zone.js"></script>    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/4.0.0/system.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/4.0.0/extras/amd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/4.0.0/extras/named-exports.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/4.0.0/extras/named-register.min.js"></script>
+    
+    <!-- <WITH LOCAL SCRIPT LOADING ./src/loadAssets.js> -->
+    <!-- <script type="text/javascript" src="./src/loadAssets.js"></script> -->
+    <!-- </WITH LOCAL SCRIPT LOADING ./src/loadAssets.js> -->
+
+    <template id="single-spa-layout">
+      <single-spa-router>       
+        <div class="main-content">
+          <route path="header">
+            <application name="header"></application>
+          </route>
+          <route path="footer">
+            <application name="footer"></application>
+          </route>
+          <route default>
+            <application name="header"></application>
+          </route>
+        </div>
+      </single-spa-router>
+    </template>
+
+  </head>
+  <body>
+
+    <!-- <WITH LOCAL SCRIPT LOADING ./src/loadAssets.js> -->
+     <!-- <script>
+        getConstants().then(dataConstants => {
+                            console.log('getConstants: ',dataConstants);    
+                            this.copies =   dataConstants[0].data.copies;
+                            this.endpoint =   dataConstants[1].urls;
+                            this.parameters =   dataConstants[2].data.parameters;
+                            this.businessRules =   dataConstants[3].data.businessRules;
+
+                            console.log('copies: ',this.copies ); 
+                            console.log('endpoint: ',this.endpoint );  
+                            console.log('parameters: ',this.parameters );  
+                            console.log('businessRules: ',this.businessRules );   
+                            
+        }); 
+
+    </script>  -->
+    <!-- </WITH LOCAL SCRIPT LOADING ./src/loadAssets.js> -->
+
+    <script>
+
+      // WITH SCRIPT LOADING load-assets
+      Promise.all([System.import('single-spa'), System.import('single-spa-layout'), System.import('load-assets')]).then(([singleSpa, singleSpaLayout, loadAssets]) => {      
+              
+      // REGISTRATION GENERATING MICROFRONTEND ROUTES
+      //Promise.all([System.import('single-spa'), System.import('single-spa-layout')]).then(([singleSpa, singleSpaLayout]) => {  
+
+      // <SIMPLE MICROFRONTEND REGISTRATION>
+      //Promise.all([System.import('single-spa')]).then(([singleSpa]) => { 
+        
+        // <SIMPLE MICROFRONTEND REGISTRATION>
+        /* singleSpa.registerApplication({
+                                name: 'header3',
+                                app:  System.import('http://localhost:4201/main.js'),
+                                activeWhen: () => true,
+                                customProps: {
+                                  MiProps: 'Se pasa algun props' 
+                                } 
+                              });
+
+        singleSpa.start(); */
+        // </SIMPLE MICROFRONTEND REGISTRATION>
+
+        // <WITH SCRIPT LOADING load-assets>
+        var copies ;
+        var endpoint ;
+        var parameters ;
+        var businessRules ;
+
+        getConstants().then(dataConstants => {
+                            console.log('getConstants: ',dataConstants);    
+                            this.copies =   dataConstants[0].data.copies;
+                            this.endpoint =   dataConstants[1].urls;
+                            this.parameters =   dataConstants[2].data.parameters;
+                            this.businessRules =   dataConstants[3].data.businessRules;
+
+                            console.log('copies: ',this.copies ); 
+                            console.log('endpoint: ',this.endpoint );  
+                            console.log('parameters: ',this.parameters );  
+                            console.log('businessRules: ',this.businessRules );   
+                            
+                            singleSpa.registerApplication({
+                                name: 'header2',
+                                app:  System.import(this.endpoint.microfrontends.header),
+                                activeWhen: () => true,
+                                customProps: {
+                                  MiProps: this.copies.header.title 
+                                } 
+                              });
+
+                              singleSpa.start();
+                              
+        });
+
+        // </WITH SCRIPT LOADING load-assets>
+
+        // <REGISTRATION GENERATING MICROFRONTEND ROUTES>
+       /*  const { constructApplications, constructLayoutEngine, constructRoutes } = singleSpaLayout;
+        const { registerApplication, start } = singleSpa;
+  
+        const htmlTemplate = document.querySelector('#single-spa-layout')
+        const layoutData = {
+          props: {
+            customProps:{
+            MiProps: "78sf9d0fds89-0fysdiuf6sf8",
+            }
+          },
+          loaders: {
+            mainContent: `<img src="loading.gif">`,
+            // A single-spa parcel config
+            customProps:{
+            MiProps: "78sf9d0fds89-0fysdiuf6sf8",
+            }
+          },
+          customProps:{
+            MiProps: "78sf9d0fds89-0fysdiuf6sf8",
+            }
+        };
+
+        const resolvedRoutes = constructRoutes(htmlTemplate, layoutData)
+
+        const applications = constructApplications({
+          routes: resolvedRoutes,
+          loadApp: (app) => System.import(app.name)
+        })
+        //applications.forEach(registerApplication);
+
+        const layoutEngine = constructLayoutEngine({routes: resolvedRoutes, applications: applications});
+
+        // layoutEngine.isActive(); // true
+        // layoutEngine.deactivate();
+        // layoutEngine.activate();
+
+        applications.forEach(registerApplication);
+        
+        start(); */
+
+        // </REGISTRATION GENERATING MICROFRONTEND ROUTES>
+         
+      });
+    </script>
+  </body>
+</html>

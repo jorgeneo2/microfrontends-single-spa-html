@@ -1,0 +1,15 @@
+{
+    "urls": {
+        "portal_pj_enterprises": "/empresas",
+        "redirect_porta_pj":"/consultaproductos/servlet/IngresoValDatosToBe",
+        "3scale": {
+            "BASE": "https://apis-dev.itau.co/api-pj",
+            "customer_menu_clients":"/clients/v1/clients/menu",
+            "customer_modules_clients":"/clients/v1/clients/modules"
+        },
+        "microfrontends": {
+            "header": "http://localhost:4201/main.js",
+            "footer": "http://localhost:4202/main.js"            
+          }
+    }
+}

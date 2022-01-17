@@ -1,0 +1,38 @@
+{
+    "data": {
+        "parameters": {
+            "headers": {
+                "application": "PagosPJ",
+                "channel_id":"141"
+            },
+            "paramsRedirect":{
+                "opc": "opc",
+                "opcValue":"ONPR",
+                "session":"SESION",
+                "idioma":"IDIOMA",
+                "urlRedirect":"urlredirect"
+            },
+            "menuOrder": [
+                "Consultas",
+                "Pagos",
+                "Ahorro e Inversion",
+                "Comercio Exterior",
+                "Confirming",
+                "Libranzas",
+                "Claves y Seguridad",
+                "Servicio al Cliente",
+                "Mas"
+            ],
+            "propsNames": {
+                "SsoProps": "SsoProps",
+                "TransactionId": "TransactionId",
+                "ConfigMapsUrls": "ConfigMapsUrls",
+                "SessionDataProps": "SessionDataProps",
+                "FiltersState": "FiltersState",
+                "ChasisStates": "ChasisStates",
+                "DataSharedProps": "DataSharedProps",
+                "CallBackSessionExpired": "CallBackSessionExpired"
+            }
+        }
+    }
+}
