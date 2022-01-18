@@ -1,61 +1,92 @@
+/**
+ * Metodo de peticion base
+ *
+ * @param {*} route
+ * @return {*} 
+ */
 function getData(route) {
    return fetch(route, {
-                  // method: 'GET',
-                  headers: {
-                     'Content-Type': 'application/json',
-                     'Accept': 'application/json'
-                  }
-               })
-               .then(response => {/*console.log('getData then response: ',response);*/ return response.json();})
-               //.then(data => {console.log('getData then data: ',data); return data; })            
-               .catch(error => console.log("Ha ocurrido un error (" + error + ")"))
-               ; 
+         // method: 'GET',
+         headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+         }
+      })
+      .then(response => {
+         /*console.log('getData then response: ',response);*/
+         return response.json();
+      })
+      //.then(data => {console.log('getData then data: ',data); return data; })            
+      .catch(error => console.log("Ha ocurrido un error (" + error + ")"));
 }
 
-function getConstants() {
-  
-   var data = [];
+var index = 0;
+var data = [];
+var urls = [
+   "./src/assets/resources/copies.json",
+   "./src/assets/resources/context.urls.json",
+   "./src/assets/resources/application_parameters.json",
+   "./src/assets/resources/business_rules.json"
+];
 
-    return getData('./src/assets/utils/constants.json')
-            .then(dataConstants => {
-               console.log('getConstants XXX: ',dataConstants);
-               return getConfigMapCopies(dataConstants.CONSTANTS.CONFIGMAP_COPIES)
-                     .then(dataCopies => {
-                        console.log('getConfigMapCopies XXX: ',dataCopies);
-                        data.push(dataCopies);
-                        return getConfigMapEndpoint(dataConstants.CONSTANTS.CONFIGMAP_ENDPOINT_URLS)
-                              .then(dataEndPoint => {
-                                 console.log('getConfigMapEndpoint XXX: ',dataEndPoint);
-                                 data.push(dataEndPoint);
-                                 return getConfigMapParameters(dataConstants.CONSTANTS.CONFIGMAP_PARAMETERS)
-                                       .then(dataParameters => {
-                                          console.log('getConfigMapParameters XXX: ',dataParameters);
-                                          data.push(dataParameters);
-                                          return getConfigMapBusinessRules(dataConstants.CONSTANTS.CONFIGMAP_BUSINESS_RULES)
-                                                .then(dataBusinessRules => {
-                                                   console.log('getConfigMapBusinessRules XXX: ',dataBusinessRules);
-                                                   data.push(dataBusinessRules);
-                                                   return data;
-                                                });
-                                       }); 
-                              });   
-                           });
-            })
+
+/**
+ * Obtiene la data de configs segun el array entregado
+ *
+ * @return {*} 
+ */
+function getConfigs() {
+
+   var url = urls[index];
+
+   if (index == urls.length) {
+      return data;
+   } else {
+      return getData(url)
+         .then(dataConfig => {
+            data.push(dataConfig);
+            index++;
+            return getConfigs();
+         });
+   }
+
 }
 
-function getConfigMapCopies(route) {
-   return getData(route);
-}
 
-function getConfigMapEndpoint(route) {
-   return getData(route);
-}
+var urlConstant = [
+   "./src/assets/utils/constants.json"
+];
 
-function getConfigMapParameters(route) {
-   return getData(route);
-}
+var urlsConfigs;
 
-function getConfigMapBusinessRules(route) {
-   return getData(route);
-}
+/**
+ * Obtiene la data de configs segun el array obtenido apartir de un .json dado
+ *
+ * @return {*} 
+ */
+function getConfigsConstants() {
 
+   //Se obtiene las urls del .json
+   if (urlsConfigs == null || urlsConfigs == undefined) {
+      return getData(urlConstant[0])
+         .then(dataConfig => {
+            urlsConfigs = dataConfig.CONSTANTS;
+            return getConfigs();
+         });
+   }
+
+
+   var url = urlsConfigs[index];
+
+   if (index == urlsConfigs.length) {
+      return data;
+   } else {
+      return getData(url)
+         .then(dataConfig => {
+            data.push(dataConfig);
+            index++;
+            return getConfigs();
+         });
+   }
+
+}

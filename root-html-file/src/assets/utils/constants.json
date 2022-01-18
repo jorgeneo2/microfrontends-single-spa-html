@@ -1,9 +1,8 @@
 {
-    "CONSTANTS": {
-        "CONFIGMAP_COPIES": "./src/assets/resources/copies.json",
-        "CONFIGMAP_ENDPOINT_URLS": "./src/assets/resources/context.urls.json",
-        "CONFIGMAP_PARAMETERS": "./src/assets/resources/application_parameters.json",
-        "CONFIGMAP_BUSINESS_RULES": "./src/assets/resources/business_rules.json",
-        "CONFIGMAP_ACTIVE": ""
-    }
+    "CONSTANTS": [
+        "./src/assets/resources/copies.json",
+        "./src/assets/resources/context.urls.json",
+        "./src/assets/resources/application_parameters.json",
+        "./src/assets/resources/business_rules.json"
+    ]
 }

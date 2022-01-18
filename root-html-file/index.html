@@ -53,12 +53,12 @@
 
     <!-- <WITH LOCAL SCRIPT LOADING ./src/loadAssets.js> -->
      <!-- <script>
-        getConstants().then(dataConstants => {
-                            console.log('getConstants: ',dataConstants);    
-                            this.copies =   dataConstants[0].data.copies;
-                            this.endpoint =   dataConstants[1].urls;
-                            this.parameters =   dataConstants[2].data.parameters;
-                            this.businessRules =   dataConstants[3].data.businessRules;
+        getConfigs().then(dataConfigs => {
+                            console.log('getConfigs: ',dataConfigs);    
+                            this.copies =   dataConfigs[0].data.copies;
+                            this.endpoint =   dataConfigs[1].urls;
+                            this.parameters =   dataConfigs[2].data.parameters;
+                            this.businessRules =   dataConfigs[3].data.businessRules;
 
                             console.log('copies: ',this.copies ); 
                             console.log('endpoint: ',this.endpoint );  
@@ -100,12 +100,12 @@
         var parameters ;
         var businessRules ;
 
-        getConstants().then(dataConstants => {
-                            console.log('getConstants: ',dataConstants);    
-                            this.copies =   dataConstants[0].data.copies;
-                            this.endpoint =   dataConstants[1].urls;
-                            this.parameters =   dataConstants[2].data.parameters;
-                            this.businessRules =   dataConstants[3].data.businessRules;
+        getConfigs().then(dataConfigs => {
+                            console.log('getConfigs: ',dataConfigs);    
+                            this.copies =   dataConfigs[0].data.copies;
+                            this.endpoint =   dataConfigs[1].urls;
+                            this.parameters =   dataConfigs[2].data.parameters;
+                            this.businessRules =   dataConfigs[3].data.businessRules;
 
                             console.log('copies: ',this.copies ); 
                             console.log('endpoint: ',this.endpoint );  
