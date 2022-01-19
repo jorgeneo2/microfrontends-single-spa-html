@@ -90,7 +90,7 @@
       //Promise.all([System.import('single-spa')]).then(([singleSpa]) => { 
 
       // <WITH SCRIPT LOADING load-assets USING Promise.all>
-      Promise.all([System.import('single-spa'), System.import('single-spa-layout'), getConfigs()]).then(([singleSpa, singleSpaLayout, loadAssets]) => {
+      Promise.all([System.import('single-spa'), System.import('single-spa-layout'), getConfigsConstantsAsync()]).then(([singleSpa, singleSpaLayout, loadAssets]) => {
 
         console.log('var dataAssetsConfig de loadAssets.js: ',dataAssetsConfig ); 
         console.log('loadAssets: ',loadAssets ); 

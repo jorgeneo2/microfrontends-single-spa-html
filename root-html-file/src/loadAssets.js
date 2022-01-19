@@ -6,12 +6,12 @@
  */
 function getData(route) {
    return fetch(route, {
-         // method: 'GET',
-         headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-         }
-      })
+      // method: 'GET',
+      headers: {
+         'Content-Type': 'application/json',
+         'Accept': 'application/json'
+      }
+   })
       .then(response => {
          /*console.log('getData then response: ',response);*/
          return response.json();
@@ -31,11 +31,11 @@ var urls = [
 
 
 /**
- * Obtiene la data de configs segun el array entregado
+ * Obtiene la data de configs de forma sincrona segun el array entregado
  *
  * @return {*} 
  */
-function getConfigs() {
+function getConfigsSync() {
 
    var url = urls[index];
 
@@ -46,31 +46,58 @@ function getConfigs() {
          .then(dataConfig => {
             dataAssetsConfig.push(dataConfig);
             index++;
-            return getConfigs();
+            return getConfigsSync();
          });
    }
 
 }
 
+/**
+ * Obtiene la data de configs de forma asincrona segun el array entregado
+ *
+ * @return {*} 
+ */
+ function getConfigsAsync() {
 
-var urlConstant = "./src/assets/utils/constants.json"
-;
+   let myPromise = new Promise((resolve, reject) => {
+
+      const arrayPromises = [];
+
+      urls.forEach(function (value, index, urls) {
+         arrayPromises.push(getData(value));
+      });
+
+      Promise.allSettled(arrayPromises)
+         .then(responses => {
+            responses.forEach(response => {               
+               dataAssetsConfig.push(response.value);
+               resolve(dataAssetsConfig);
+            })
+         });
+
+   });
+
+   return myPromise;
+
+}
+
+var urlConstant = "./src/assets/utils/constants.json";
 
 var urlsConfigs;
 
 /**
- * Obtiene la data de configs segun el array obtenido apartir de un .json dado
+ * Obtiene la data de configs de forma sincrona segun el array obtenido apartir de un .json dado
  *
  * @return {*} 
  */
-function getConfigsConstants() {
+function getConfigsConstantsSync() {
 
    //Se obtiene las urls del .json
    if (urlsConfigs == null || urlsConfigs == undefined) {
       return getData(urlConstant)
          .then(dataConfig => {
             urlsConfigs = dataConfig.CONSTANTS;
-            return getConfigs();
+            return getConfigsConstantsSync();
          });
    }
 
@@ -84,8 +111,44 @@ function getConfigsConstants() {
          .then(dataConfig => {
             dataAssetsConfig.push(dataConfig);
             index++;
-            return getConfigs();
+            return getConfigsConstantsSync();
          });
    }
+
+}
+
+/**
+ * Obtiene la data de configs de forma asincrona segun el array obtenido apartir de un .json dado
+ *
+ * @return {*} 
+ */
+ function getConfigsConstantsAsync() {
+
+   let myPromise = new Promise((resolve, reject) => {
+
+      //Se obtiene las urls del .json
+      getData(urlConstant)
+         .then(dataConfig => {
+            urlsConfigs = dataConfig.CONSTANTS;
+            const arrayPromises = [];
+
+            urlsConfigs.forEach(function (value, index, urlsConfigs) {
+               arrayPromises.push(getData(value));
+            });
+
+            Promise.allSettled(arrayPromises)
+               .then(responses => {
+                  responses.forEach(response => {
+
+                     dataAssetsConfig.push(response.value);
+                     resolve(dataAssetsConfig);
+                  })
+               });
+
+         });
+
+   });
+
+   return myPromise;
 
 }
