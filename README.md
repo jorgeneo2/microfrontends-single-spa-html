@@ -16,10 +16,11 @@ The root-html-file project should also be in its own repo. This is what lets dif
 charge of different microfrontends.
 
 Follow tags:
-- "WITH LOCAL SCRIPT LOADING ./src/loadAssets.js" : load the loadAssets.js in a script tag.
-- "WITH SCRIPT LOADING load-assets"               : load the loadAssets.js inside method Promise.all.
-- "SIMPLE MICROFRONTEND REGISTRATION"             : load the microfrontend in a simple way.
-- "REGISTRATION GENERATING MICROFRONTEND ROUTES"  : load several microfrontend with their respective route.
+- "WITH LOCAL SCRIPT LOADING ./src/loadAssets.js"       : load the loadAssets.js in a script tag.
+- "WITH SCRIPT LOADING load-assets"                     : load the loadAssets.js inside method Promise.all wait for the load to finish load-assets.
+- "WITH SCRIPT LOADING load-assets USING Promise.all"   : load the loadAssets.js operations in parallel and wait for all to finish.
+- "SIMPLE MICROFRONTEND REGISTRATION"                   : load the microfrontend in a simple way.
+- "REGISTRATION GENERATING MICROFRONTEND ROUTES"        : load several microfrontend with their respective route.
 
 ## Local development -- all at once
 It is preferred to only run one app at a time. But if you need to run them all locally, you can do so with the following instructions

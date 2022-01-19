@@ -21,7 +21,7 @@ function getData(route) {
 }
 
 var index = 0;
-var data = [];
+var dataAssetsConfig = [];
 var urls = [
    "./src/assets/resources/copies.json",
    "./src/assets/resources/context.urls.json",
@@ -40,11 +40,11 @@ function getConfigs() {
    var url = urls[index];
 
    if (index == urls.length) {
-      return data;
+      return dataAssetsConfig;
    } else {
       return getData(url)
          .then(dataConfig => {
-            data.push(dataConfig);
+            dataAssetsConfig.push(dataConfig);
             index++;
             return getConfigs();
          });
@@ -79,11 +79,11 @@ function getConfigsConstants() {
    var url = urlsConfigs[index];
 
    if (index == urlsConfigs.length) {
-      return data;
+      return dataAssetsConfig;
    } else {
       return getData(url)
          .then(dataConfig => {
-            data.push(dataConfig);
+            dataAssetsConfig.push(dataConfig);
             index++;
             return getConfigs();
          });
