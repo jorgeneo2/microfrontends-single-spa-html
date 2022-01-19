@@ -53,9 +53,8 @@ function getConfigs() {
 }
 
 
-var urlConstant = [
-   "./src/assets/utils/constants.json"
-];
+var urlConstant = "./src/assets/utils/constants.json"
+;
 
 var urlsConfigs;
 
@@ -68,7 +67,7 @@ function getConfigsConstants() {
 
    //Se obtiene las urls del .json
    if (urlsConfigs == null || urlsConfigs == undefined) {
-      return getData(urlConstant[0])
+      return getData(urlConstant)
          .then(dataConfig => {
             urlsConfigs = dataConfig.CONSTANTS;
             return getConfigs();
