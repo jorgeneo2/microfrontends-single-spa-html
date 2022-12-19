@@ -39,6 +39,8 @@
     
     <!-- WITH LOCAL SCRIPT LOADING ./src/loadAssets.js -->
       <!-- WITH SCRIPT LOADING load-assets USING Promise.all -->
+    <!-- 
+      
     <script type="text/javascript" src="./src/loadAssets.js"></script>
 
     <template id="single-spa-layout">
@@ -55,7 +57,9 @@
           </route>
         </div>
       </single-spa-router>
-    </template>
+    </template> 
+  
+    -->
 
   </head>
   <body>
@@ -88,12 +92,12 @@
       //Promise.all([System.import('single-spa'), System.import('single-spa-layout')]).then(([singleSpa, singleSpaLayout]) => {  
 
       // <SIMPLE MICROFRONTEND REGISTRATION>
-      //Promise.all([System.import('single-spa')]).then(([singleSpa]) => { 
+      Promise.all([System.import('single-spa')]).then(([singleSpa]) => { 
 
       // <WITH SCRIPT LOADING load-assets USING Promise.all>
-      Promise.all([System.import('single-spa'), System.import('single-spa-layout'), getConfigsConstantsAsync()]).then(([singleSpa, singleSpaLayout, loadAssets]) => {
+      //Promise.all([System.import('single-spa'), System.import('single-spa-layout'), getConfigsConstantsAsync()]).then(([singleSpa, singleSpaLayout, loadAssets]) => {
 
-        console.log('var dataAssetsConfig de loadAssets.js: ',dataAssetsConfig ); 
+        /* console.log('var dataAssetsConfig de loadAssets.js: ',dataAssetsConfig ); 
         console.log('loadAssets: ',loadAssets ); 
         console.log('loadAssets[1]: ',loadAssets[1] ); 
 
@@ -106,12 +110,12 @@
                                 } 
                               });
 
-        singleSpa.start();
+        singleSpa.start(); */
         // </WITH SCRIPT LOADING load-assets USING Promise.all>
 
         // <SIMPLE MICROFRONTEND REGISTRATION>
-        /* singleSpa.registerApplication({
-                                name: 'header3',
+        singleSpa.registerApplication({
+                                name: 'footer',
                                 app:  System.import('http://localhost:4201/main.js'),
                                 activeWhen: () => true,
                                 customProps: {
@@ -119,7 +123,16 @@
                                 } 
                               });
 
-        singleSpa.start(); */
+        singleSpa.registerApplication({
+                                name: 'header3',
+                                app:  System.import('http://localhost:4202/main.js'),
+                                activeWhen: () => true,
+                                customProps: {
+                                  MiProps: 'Se pasa algun props' 
+                                } 
+                              });
+
+        singleSpa.start();
         // </SIMPLE MICROFRONTEND REGISTRATION>
 
         // <WITH SCRIPT LOADING load-assets>
